@@ -12,8 +12,7 @@
                 <img class="img-fluid" src="/static/{{ card['cardid'] }}.jpg"
                      style="width:267px;height:386px;display:block;margin:auto;"/>
             </div>
-            <form class="col-xs-12 col-sm-8" action="/wish_insert" method="post" id="wish_form" name="wish_form"
-                  onsubmit="return entry_check()">
+            <form class="col-xs-12 col-sm-8" action="/wish_insert" method="post" id="wish_form" name="wish_form">
                 <input type="hidden" id="card_id" name="card_id" value="{{ card['cardid'] }}"
                        style="border-radius: 2vh;">
                 <div class="form-group">
@@ -33,9 +32,8 @@
                 <input type="hidden" class="form-control" id="send_destination" name="send_destination">
 
                 <hr>
-                <button type="submit" class="btn btn-primary" name="btn" value="Submit" id="submitBtn"
-                        data-toggle="modal" data-target="#confirm-submit">Submit
-                </button>
+        <input type="button" name="btn" value="Submit" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
+               class="btn btn-default bg-primary"/>
             </form>
         </div>
         <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -72,11 +70,11 @@
                         <input type="text" class="form-control" rows="5" id="email_input" name="email">
                     </div>
                     <div class="form-group" id="post_field" style="display:none">
-                        <label for="message">Adress:</label>
+                        <label for="message">Address:</label>
                         <input type="text" class="form-control" rows="5" id="post_input" name="post">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
                         <button id="submit" form="wish_form" class="btn btn-success success">Submit</button>
                     </div>
                 </div>
