@@ -24,6 +24,10 @@
 6. Change the working directory of the app to:
   `/home/<username>/Zappster`
   ![](https://i.imgur.com/npXYqpu.png)
-7. Add a path for static files
+7. Edit the WSGI file (`/var/www/<username>_pythonanywhere_com_wsgi.py`): 
+  - Change default_app > flask_app
+8. Add a path for static files
   `/static/` > `/home/<username>/Zappster/static/`
   ![](https://i.imgur.com/ACsvixB.png)
+9. You can now delete the mysite directory and default_app.py if needed
+10. refresh the web app
