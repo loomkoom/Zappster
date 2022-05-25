@@ -31,3 +31,6 @@
   ![](https://i.imgur.com/ACsvixB.png)
 9. You can now delete default_app.py if needed
 10. refresh the web app
+
+! You might have to delete and recreate the database to solve errors.
+see error log: https://www.pythonanywhere.com/user/<username>/files/var/log/zappsters.pythonanywhere.com.error.log
