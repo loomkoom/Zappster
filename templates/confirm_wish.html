@@ -5,14 +5,7 @@
 {% block title %} New Wish confirmation {% endblock %}
 
 {% block content %}
-    <h1>New Wish confirmation</h1>
-
-    <hr/>
-
-    <h1> {{ card }}</h1>
-    <img src="/static/{{ card['cardid'] }}.jpg"/>
-
-
-    <p>New wish was added to the database</p>
+    <h1 class="HeadTitle">Jouw wens is verstuurd !</h1>
+    <img src="/static/{{ card['cardid'] }}.jpg" id="cards"/>
 
 {% endblock %}

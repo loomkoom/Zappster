@@ -29,8 +29,10 @@ def db_connect():
 
 @app.route('/')
 def home():
-    print(os.getcwd())
-    return render_template("index.html")
+    cur, conn = db_connect()
+    cards = cur.execute('SELECT * FROM card;').fetchall()
+    conn.close()
+    return render_template("index.html", cards = cards)
 
 
 @app.route('/about')

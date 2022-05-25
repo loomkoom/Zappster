@@ -5,11 +5,17 @@
 {% block title %} AR Greeting Cards {% endblock %}
 
 {% block content %}
-    <h1>Your unique card</h1>
-    <hr/>
-
+    <h1 class="HeadTitle">Jouw unieke wenskaart</h1>
     <div>
-        <img src="/static/{{ card['cardid'] }}.jpg"/>
-        <p> {{ card }}</p>
+        <div class="row" style="margin-bottom: 5vh">
+            <div class="col-xs-12 col-sm-6">
+                <h4 class="Subtitle">Ontvangen kaart</h4>
+              <img src="/static/{{ card['cardid'] }}.jpg" style="width:267px;height:386px;display:block;margin:auto";/>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <h4 class="Subtitle">Boodschap</h4>
+              <p class="Message">{{card['message']}}</p>
+            </div>
+        </div>
     </div>
 {% endblock %}
