@@ -2,6 +2,7 @@ import secrets
 import sqlite3
 import string
 
+import requests
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
@@ -55,6 +56,16 @@ def wish_form(card_id):
     return render_template("send_wish.html", card=card)
 
 
+def send_mail(email, uid):
+    x = requests.post("https://api.mailgun.net/v3/sandboxa39931aba4ea43a885c240d815b0a2c2.mailgun.org/messages",
+                      auth=("api", "9374b99615d0f43ff1e12995ef3c3317-8d821f0c-6df1ae28"),
+                      data={"from": "laurens@zappsters.pythonanywhere.com",
+                            "to": [f"{email}"],
+                            "subject": "Greeting card",
+                            "text": "You have been sent an AR greeting card! The unique code for your personnel message is!" + uid})
+    return x.text
+
+
 @app.route('/wish_insert', methods=['POST'])
 def wish_insert():
     sender = request.form.get("sender")
@@ -74,6 +85,9 @@ def wish_insert():
     else:
         db_id = max_id + 1
     uid = generate_uid(db_id)
+
+    if send_method == "email":
+        send_mail(send_destination,uid)
 
     card = cur.execute('SELECT * FROM card WHERE cardid' + '=' + str(card_id) + ';').fetchone()
     conn.execute(
