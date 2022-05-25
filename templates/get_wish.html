@@ -1,0 +1,23 @@
+<!-- The content page extends our base template -->
+{% extends 'base.html' %}
+
+<!-- Fill in the title -->
+{% block title %} Add New Wish {% endblock %}
+
+{% block content %}
+    <h1>Get your message</h1>
+
+    <hr/>
+
+    <p>Please fill in this the code:</p>
+
+    <p>
+    <form action="/show_wish" method="post">
+        <div class="form-group">
+            <label for="sender">Unique code:</label>
+            <input type="text" class="form-control" id="uuid" name="uuid">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </p>
+{% endblock %}

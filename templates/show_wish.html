@@ -1,0 +1,15 @@
+<!-- The content page extends our base template -->
+{% extends 'base.html' %}
+
+<!-- Fill in the title -->
+{% block title %} AR Greeting Cards {% endblock %}
+
+{% block content %}
+    <h1>Your unique card</h1>
+    <hr/>
+
+    <div>
+        <img src="/static/{{ card['cardid'] }}.jpg"/>
+        <p> {{ card }}</p>
+    </div>
+{% endblock %}
