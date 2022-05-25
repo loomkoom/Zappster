@@ -29,5 +29,5 @@
 8. Add a path for static files
   `/static/` > `/home/<username>/Zappster/static/`
   ![](https://i.imgur.com/ACsvixB.png)
-9. You can now delete the mysite directory and default_app.py if needed
+9. You can now delete default_app.py if needed
 10. refresh the web app
