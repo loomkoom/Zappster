@@ -25,7 +25,7 @@
   `/home/<username>/Zappster`
   ![](https://i.imgur.com/npXYqpu.png)
 7. Edit the WSGI file (`/var/www/<username>_pythonanywhere_com_wsgi.py`): 
-  - Change default_app > flask_app
+  - Change `default_app` > `flask_app`
 8. Add a path for static files
   `/static/` > `/home/<username>/Zappster/static/`
   ![](https://i.imgur.com/ACsvixB.png)
