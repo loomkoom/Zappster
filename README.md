@@ -2,7 +2,9 @@
 
 ## Setup
 1. Open a pythonanywhere bash console
-![](https://i.imgur.com/jNeYvUF.png)
+
+  ![](https://i.imgur.com/jNeYvUF.png)
+  
 3. generate SSH keys (no password is fine)
   ```bash
   ssh-keygen -t ed25519
