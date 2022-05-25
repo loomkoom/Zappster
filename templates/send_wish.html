@@ -7,27 +7,80 @@
 {% block content %}
     <h1 class="HeadTitle">Stuur uw boodschap</h1>
     <div class="container-fluid p-4">
-    <div class="row">
-    <div class="col-xs-12 col-sm-4">
-        <img class="img-fluid" src="/static/{{ card['cardid'] }}.jpg" style="width:267px;height:386px;display:block;margin:auto;"/>
-    </div>
-    <form action="/wish_insert" method="post" class="col-xs-12 col-sm-8">
-        <input type="hidden" id="card_id" name="card_id" value="{{ card['cardid'] }}" style="border-radius: 2vh;">
-        <div class="form-group">
-            <label for="sender">From:</label>
-            <input type="text" class="form-control" id="sender" name="sender" style="border-radius: 2vh;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <img class="img-fluid" src="/static/{{ card['cardid'] }}.jpg"
+                     style="width:267px;height:386px;display:block;margin:auto;"/>
+            </div>
+            <form class="col-xs-12 col-sm-8" action="/wish_insert" method="post" id="wish_form" name="wish_form"
+                  onsubmit="return entry_check()">
+                <input type="hidden" id="card_id" name="card_id" value="{{ card['cardid'] }}"
+                       style="border-radius: 2vh;">
+                <div class="form-group">
+                    <label for="sender">From:</label>
+                    <input type="text" class="form-control" id="sender" name="sender" style="border-radius: 2vh;">
+                </div>
+                <div class="form-group">
+                    <label for="receiver">To:</label>
+                    <input type="text" class="form-control" id="receiver" name="receiver" style="border-radius: 2vh;">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea class="form-control" rows="5" id="message" name="message"
+                              style="border-radius: 2vh;"></textarea>
+                </div>
+                <input type="hidden" class="form-control" id="send_method" name="send_method">
+                <input type="hidden" class="form-control" id="send_destination" name="send_destination">
+
+                <hr>
+                <button type="submit" class="btn btn-primary" name="btn" value="Submit" id="submitBtn"
+                        data-toggle="modal" data-target="#confirm-submit">Submit
+                </button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="receiver">To:</label>
-            <input type="text" class="form-control" id="receiver" name="receiver" style="border-radius: 2vh;">
+        <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">Confirm Submit</div>
+                    <div class="modal-body">How do you want to send the card?
+                        <table class="table">
+                            <tr>
+                                <th>Sender:</th>
+                                <td id="sender"></td>
+                            </tr>
+                            <tr>
+                                <th>Receiver:</th>
+                                <td id="receiver"></td>
+                            </tr>
+                            <tr>
+                                <th>Message:</th>
+                                <td id="message"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group" id="send_method">
+                        <label for="email">Email:</label>
+                        <input type="radio" onclick="checkSendMethod();" name="send_method" id="email_radio"
+                               value="email"/>
+                        <label for="post">Post:</label>
+                        <input type="radio" onclick="checkSendMethod();" name="send_method" id="post_radio"
+                               value="post"/>
+                    </div>
+                    <div class="form-group" id="email_field" style="display:none">
+                        <label for="message">E-mail:</label>
+                        <input type="text" class="form-control" rows="5" id="email_input" name="email">
+                    </div>
+                    <div class="form-group" id="post_field" style="display:none">
+                        <label for="message">Adress:</label>
+                        <input type="text" class="form-control" rows="5" id="post_input" name="post">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button id="submit" form="wish_form" class="btn btn-success success">Submit</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea class="form-control" rows="5" id="message" name="message" style="border-radius: 2vh;"></textarea>
-        </div>
-        <hr>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    </div>
     </div>
 {% endblock %}

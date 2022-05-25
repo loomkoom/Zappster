@@ -1,7 +1,6 @@
 import secrets
 import sqlite3
 import string
-import os.path
 
 from flask import Flask, jsonify, request, render_template
 
@@ -32,7 +31,7 @@ def home():
     cur, conn = db_connect()
     cards = cur.execute('SELECT * FROM card;').fetchall()
     conn.close()
-    return render_template("index.html", cards = cards)
+    return render_template("index.html", cards=cards)
 
 
 @app.route('/about')
@@ -51,16 +50,21 @@ def list_cards():
 @app.route('/wish/<card_id>')
 def wish_form(card_id):
     cur, conn = db_connect()
-    card = cur.execute(f'SELECT * FROM card WHERE cardid={card_id};').fetchall()
+    card = cur.execute(f'SELECT * FROM card WHERE cardid={card_id};').fetchone()
     conn.close()
-    return render_template("send_wish.html", card=card[0])
+    return render_template("send_wish.html", card=card)
 
 
 @app.route('/wish_insert', methods=['POST'])
 def wish_insert():
     sender = request.form.get("sender")
     message = request.form.get("message")
+    receiver = request.form.get("receiver")
     card_id = request.form.get("card_id")
+    send_method = request.form.get("send_method")
+    send_destination = request.form.get("send_destination")
+    print("s: ", sender, "r: ", receiver, "m: ", message, "id: ", card_id, "send: ", send_method, "dest: ",
+          send_destination)
 
     cur, conn = db_connect()
 
