@@ -36,7 +36,7 @@ def home():
 
 @app.route('/about')
 def about():
-    return render_template("base.html")
+    return render_template("about.html")
 
 
 @app.route('/cards')
