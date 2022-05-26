@@ -7,12 +7,21 @@
 {% block content %}
     <h1 class="HeadTitle">Vul de code in en lees het bericht</h1>
     <div class="container">
-    <form action="/show_wish" method="post">
+    <form action="/show_wish" method="post" name="uniquecode" onsubmit="return validateForm()">
         <div class="form-group">
-            <label for="sender">Unique code:</label>
+            <label for="sender">Unieke code:</label>
             <input type="text" class="form-control" id="uuid" name="uuid" style="border-radius: 2vh;">
         </div>
         <button type="submit" class="btn btn-primary" style="margin: 2vh 2vh 30vh 0vh;">Submit</button>
     </form>
+    <script>
+        function validateForm() {
+          var code = document.forms["uniquecode"]["uuid"].value;
+          if (code == "") {
+            alert("Vul a.u.b. de unieke code in.");
+            return false;
+          }
+        }
+    </script>
     </div>
 {% endblock %}

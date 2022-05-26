@@ -12,19 +12,19 @@
                 <img class="img-fluid" src="/static/{{ card['cardid'] }}.jpg"
                      style="width:267px;height:386px;display:block;margin:auto;"/>
             </div>
-            <form class="col-xs-12 col-sm-8" action="/wish_insert" method="post" id="wish_form" name="wish_form">
+            <form class="col-xs-12 col-sm-8" action="/wish_insert" method="post" id="wish_form" name="wish_form" onsubmit="return validateForm()">
                 <input type="hidden" id="card_id" name="card_id" value="{{ card['cardid'] }}"
                        style="border-radius: 2vh;">
                 <div class="form-group">
-                    <label for="sender">From:</label>
+                    <label for="sender">Zender:</label>
                     <input type="text" class="form-control" id="sender" name="sender" style="border-radius: 2vh;">
                 </div>
                 <div class="form-group">
-                    <label for="receiver">To:</label>
+                    <label for="receiver">Ontvanger:</label>
                     <input type="text" class="form-control" id="receiver" name="receiver" style="border-radius: 2vh;">
                 </div>
                 <div class="form-group">
-                    <label for="message">Message:</label>
+                    <label for="message">Boodschap:</label>
                     <textarea class="form-control" rows="5" id="message" name="message"
                               style="border-radius: 2vh;"></textarea>
                 </div>
@@ -32,7 +32,7 @@
                 <input type="hidden" class="form-control" id="send_destination" name="send_destination">
 
                 <hr>
-        <input type="button" name="btn" value="Submit" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
+                <input type="button" name="btn" value="Submit" id="submitBtn" data-bs-toggle="modal" data-bs-target="#confirm-submit"
                class="btn btn-default bg-primary"/>
             </form>
         </div>
@@ -40,43 +40,73 @@
              aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">Confirm Submit</div>
-                    <div class="modal-body">How do you want to send the card?
+                    <div class="modal-header">Verzending bevestigen</div>
+                    <div class="modal-body">Hoe wenst u de kaart te versturen?
                         <table class="table">
                             <tr>
-                                <th>Sender:</th>
+                                <th>Zender:</th>
                                 <td id="sender"></td>
                             </tr>
                             <tr>
-                                <th>Receiver:</th>
+                                <th>Ontvanger:</th>
                                 <td id="receiver"></td>
                             </tr>
                             <tr>
-                                <th>Message:</th>
+                                <th>Boodschap:</th>
                                 <td id="message"></td>
                             </tr>
                         </table>
                     </div>
-                    <div class="form-group" id="send_method">
-                        <label for="email">Email:</label>
-                        <input type="radio" onclick="checkSendMethod();" name="send_method" id="email_radio"
-                               value="email"/>
-                        <label for="post">Post:</label>
-                        <input type="radio" onclick="checkSendMethod();" name="send_method" id="post_radio"
-                               value="post"/>
-                    </div>
-                    <div class="form-group" id="email_field" style="display:none">
-                        <label for="message">E-mail:</label>
-                        <input type="text" class="form-control" rows="5" id="email_input" name="email">
-                    </div>
-                    <div class="form-group" id="post_field" style="display:none">
-                        <label for="message">Address:</label>
-                        <input type="text" class="form-control" rows="5" id="post_input" name="post">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
-                        <button id="submit" form="wish_form" class="btn btn-success success">Submit</button>
-                    </div>
+                    <form name="card_send" onsubmit="return validateForm()">
+                        <div class="form-group" id="send_method">
+                            <label for="email">Email:</label>
+                            <input type="radio" onclick="checkSendMethod();" name="send_method" id="email_radio"
+                                   value="email"/>
+                            <label for="post">Post:</label>
+                            <input type="radio" onclick="checkSendMethod();" name="send_method" id="post_radio"
+                                   value="post"/>
+                        </div>
+                        <div class="form-group" id="email_field" style="display:none">
+                            <label for="message">E-mail:</label>
+                            <input type="text" class="form-control" rows="5" id="email_input" name="email" >
+                        </div>
+                        <div class="form-group" id="post_field" style="display:none">
+                            <label for="message">Address:</label>
+                            <input type="text" class="form-control" rows="5" id="post_input" name="post" >
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button>
+                            <button id="submit" form="wish_form" class="btn btn-success success">Submit</button>
+                        </div>
+
+                    </form>
+                     <script>
+                            function validateForm() {
+                                var sender = document.forms["wish_form"]["sender"].value;
+                                var receiver = document.forms["wish_form"]["receiver"].value;
+                                var message = document.forms["wish_form"]["message"].value;
+                                var email = document.getElementById("email_input").value
+                                var post = document.getElementById("post_input").value
+
+                                if (sender == "") {
+                                    alert("Vul a.u.b. de zender in.");
+                                    return false;
+                                }
+                                if (receiver == "") {
+                                    alert("Vul a.u.b. de ontvanger in.");
+                                    return false;
+                                }
+                                if (message == "") {
+                                    alert("Vul a.u.b. de boodschap in.");
+                                    return false;
+                                }
+
+                                if (email == "" && post == "") {
+                                    alert("gelieve het adres of email adres in te voeren.")
+                                    return false;
+                                }
+                            }
+                        </script>
                 </div>
             </div>
         </div>

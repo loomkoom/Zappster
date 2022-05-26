@@ -116,6 +116,7 @@ li:hover {
 .Subtitle {
     font-family: new-order, sans-serif;
     text-align: center;
+    margin-top: 2vh;
 }
 
 .border-circle{
@@ -123,4 +124,23 @@ li:hover {
     max-width: 100%;
     border: 3px solid #000;
     min-width: 100%;
+}
+
+figcaption {
+     font-family: new-order, sans-serif;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+    padding: 1vh;
+    font-family: new-order, sans-serif;
 }
