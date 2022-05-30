@@ -1,9 +1,9 @@
 import secrets
 import sqlite3
 import string
+from pathlib import Path
 
 import requests
-import os
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 def generate_uid(db_id):
     alphabet = string.ascii_lowercase + string.digits
-    return f"{db_id}-" + ''.join(secrets.choice(alphabet) for _ in range(4))
+    return f"{db_id}-" + ''.join(secrets.choice(alphabet) for _ in range(8))
 
 
 def dict_factory(cursor, row):
@@ -26,7 +26,6 @@ def db_connect():
     connection.row_factory = dict_factory
     cursor = connection.cursor()
     return cursor, connection
-
 
 @app.route('/')
 def home():
@@ -52,19 +51,25 @@ def list_cards():
 @app.route('/wish/<card_id>')
 def wish_form(card_id):
     cur, conn = db_connect()
-    card = cur.execute(f'SELECT * FROM card WHERE cardid={card_id};').fetchone()
+    card = cur.execute("SELECT * FROM card WHERE cardid=?", (card_id,)).fetchone()
     conn.close()
     return render_template("send_wish.html", card=card)
 
 
-def send_mail(email, sender, cardid, uid):
+def send_mail(email, sender,receiver, cardid, uid):
+    card_img = f"http://zappsters.pythonanywhere.com/static/{cardid}.jpg"
+    banner_img = f"http://zappsters.pythonanywhere.com/static/mail_banner.jpeg"
+    logo_img = f"http://zappsters.pythonanywhere.com/static/logo_mail.png"
+    git_img = f"http://zappsters.pythonanywhere.com/static/git.png"
+
     x = requests.post("https://api.mailgun.net/v3/sandboxa39931aba4ea43a885c240d815b0a2c2.mailgun.org/messages",
                       auth=("api", "9374b99615d0f43ff1e12995ef3c3317-8d821f0c-6df1ae28"),
-                      files=[('inline[0]', ('card.jpg', open(f'{os.getcwd()}/static/{cardid}.jpg', mode='rb').read()))],
+                      files=[('inline[0]', ('card.jpg', open(Path.cwd() / f'static/{cardid}.jpg', mode='rb').read()))],
                       data={"from": "laurens@zappsters.pythonanywhere.com",
                             "to": [f"{email}"],
                             "subject": "Greeting card",
-                            "text": f"You have been sent an AR greeting card from {sender}! The unique code for your personnel message i: " + uid})
+                            "html": render_template("mail.html", sender=sender, code=uid, receiver=receiver,
+                                                    card=card_img, banner=banner_img, logo=logo_img, git=git_img)})
     return x.text
 
 
@@ -89,11 +94,12 @@ def wish_insert():
     uid = generate_uid(db_id)
 
     if send_method == "email":
-        send_mail(send_destination,sender,card_id, uid)
+        send_mail(send_destination, sender,receiver, card_id, uid)
 
-    card = cur.execute('SELECT * FROM card WHERE cardid' + '=' + str(card_id) + ';').fetchone()
+    card = cur.execute("SELECT * FROM card WHERE cardid=?", (card_id,)).fetchone()
+    print(card)
     conn.execute(
-        f"INSERT INTO wish (uid, sender, message, cardid) VALUES (\'{uid}\', \'{sender}\', \'{message}\', {card_id})")
+        "INSERT INTO wish (uid, sender, message, cardid) VALUES (?,?,?,?)", (uid, sender, message, card_id))
     conn.commit()
     conn.close()
     return render_template("confirm_wish.html", card=card)
@@ -108,7 +114,7 @@ def get_wish():
 def result_wish():
     uid = request.form.get("uuid")
     cur, conn = db_connect()
-    personal_card = cur.execute(f"SELECT * FROM wish WHERE uid=\'{uid}\';").fetchone()
+    personal_card = cur.execute("SELECT * FROM wish WHERE uid=?", (uid,)).fetchone()
     conn.close()
     return render_template("show_wish.html", card=personal_card)
 
@@ -124,7 +130,7 @@ def get_personal_wish():
     # connect and open the database file database.db
     cur, conn = db_connect()
     # read the associated personal wish, you will need an extra integer field code in your wish table!
-    wish = cur.execute(f"SELECT * FROM wish WHERE code={code}").fetchall()
+    wish = cur.execute("SELECT * FROM wish WHERE code=?", (code,)).fetchall()
     conn.close()
     # there's only one wish because the code is unique
     response = jsonify(wish[0])

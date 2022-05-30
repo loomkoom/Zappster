@@ -16,6 +16,7 @@
                 <input type="hidden" id="card_id" name="card_id" value="{{ card['cardid'] }}"
                        style="border-radius: 2vh;">
                 <div class="form-group">
+
                     <label for="sender">Zender:</label>
                     <input type="text" class="form-control" id="sender" name="sender" style="border-radius: 2vh;">
                 </div>
@@ -26,6 +27,7 @@
                 <div class="form-group">
                     <label for="message">Boodschap:</label>
                     <textarea class="form-control" rows="5" id="message" name="message"
+
                               style="border-radius: 2vh;"></textarea>
                 </div>
                 <input type="hidden" class="form-control" id="send_method" name="send_method">
@@ -57,6 +59,7 @@
                             </tr>
                         </table>
                     </div>
+
                     <form name="card_send" onsubmit="return validateForm()">
                         <div class="form-group" id="send_method">
                             <label for="email">Email:</label>

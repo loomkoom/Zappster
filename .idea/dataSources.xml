@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="database" uuid="a343df09-a5c6-4375-a286-729f1f5447a0">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\mohah\Desktop\Zappster\database.db</jdbc-url>
+=======
+    <data-source source="LOCAL" name="database.db" uuid="e50417b8-74a1-46cc-acfd-9e9eb0d32012">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/database.db</jdbc-url>
+>>>>>>> ff4241330bf771777f8c00ae0d86802851513bd8
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
