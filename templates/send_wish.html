@@ -61,7 +61,7 @@
                     </div>
 
                     <form name="card_send" onsubmit="return validateForm()">
-                        <div class="form-group" id="send_method">
+                        <div class="form-group mx-3 p-2" id="send_method">
                             <label for="email">Email:</label>
                             <input type="radio" onclick="checkSendMethod();" name="send_method" id="email_radio"
                                    value="email"/>
@@ -69,11 +69,11 @@
                             <input type="radio" onclick="checkSendMethod();" name="send_method" id="post_radio"
                                    value="post"/>
                         </div>
-                        <div class="form-group" id="email_field" style="display:none">
+                        <div class="form-group mx-3 p-2" id="email_field" style="display:none">
                             <label for="message">E-mail:</label>
                             <input type="text" class="form-control" rows="5" id="email_input" name="email" >
                         </div>
-                        <div class="form-group" id="post_field" style="display:none">
+                        <div class="form-group mx-3 p-2" id="post_field" style="display:none">
                             <label for="message">Address:</label>
                             <input type="text" class="form-control" rows="5" id="post_input" name="post" >
                         </div>
